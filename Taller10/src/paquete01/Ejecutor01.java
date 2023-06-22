@@ -5,6 +5,15 @@
  */
 package paquete01;
 
+import java.util.ArrayList;
+import paquete01.Cuenta;
+
+import MenuRestaurante.Menu;
+import MenuRestaurante.MenuCarta;
+import MenuRestaurante.MenuDia;
+import MenuRestaurante.MenuEconomico;
+import MenuRestaurante.MenuNiños;
+
 /**
  *
  * @author reroes
@@ -15,7 +24,36 @@ public class Ejecutor01 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+         // Crear los objetos de menú
+        MenuNiños niños1 = new MenuNiños("Niños 01", 4.5, 2.0, 1.0, 1.5);
+        MenuNiños niños2 = new MenuNiños("Niños 02", 5.5, 3.0, 1.0, 1.5);
+        MenuEconomico economico = new MenuEconomico("Econo 001", 3.0, 4.0, 25.0);
+        MenuDia dia = new MenuDia("Dia 001", 7.0, 1.0, 1.0);
+        MenuCarta carta = new MenuCarta("Carta 001", 10.10, 6.0, 1.5, 2.0, 10.0);
+
+        // Crear el listado de cartas
+        ArrayList<Menu> listado = new ArrayList<Menu>();
+        listado.add(niños1);
+        listado.add(niños2);
+        listado.add(economico);
+        listado.add(dia);
+        listado.add(carta);
+
+        // Crear el objeto de Cuenta
+        Cuenta cuenta = new Cuenta("René Elizalde", 10.0, listado);
+
+        // Calcular el subtotal
+        double subtotal = 0;
+        for(Menu menu : listado){
+            subtotal += menu.getValorMenu();
+        }
+        cuenta.setSubtotal(subtotal);
+
+        // Calcular el total
+        cuenta.setTotal(cuenta.getSubtotal() * (1 + cuenta.getIVA()/100));
+
+        // Mostrar la factura
+        System.out.println(cuenta);
     }
     
     
